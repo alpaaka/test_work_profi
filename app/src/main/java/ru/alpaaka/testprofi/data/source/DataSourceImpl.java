@@ -1,7 +1,12 @@
 package ru.alpaaka.testprofi.data.source;
 
+import ru.alpaaka.testprofi.utils.sharedpreferences.ISharedPreferences;
+
 public class DataSourceImpl implements IDataSource{
 
-    public DataSourceImpl() {
+    private ISharedPreferences sharedPreferences;
+
+    public DataSourceImpl(ISharedPreferences sharedPreferences) {
+        this.sharedPreferences = sharedPreferences;
     }
 }
