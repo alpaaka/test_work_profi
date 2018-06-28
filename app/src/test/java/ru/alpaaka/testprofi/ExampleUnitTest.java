@@ -1,4 +1,4 @@
-package alpaaka.ru.testprofi;
+package ru.alpaaka.testprofi;
 
 import org.junit.Test;
 
