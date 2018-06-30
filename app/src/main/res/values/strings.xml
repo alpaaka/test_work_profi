@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">testprofi</string>
     <string name="sign_up">Войти</string>
+    <string name="fullname">%1$s %2$s</string>
 
     <string name="internal_error">Внутренняя ошибка</string>
     

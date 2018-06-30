@@ -38,15 +38,18 @@ public class FriendsPresenter implements FriendsContract.Presenter {
     public void loadFriends() {
         int refresh = usersCount - friends.size();
         if (refresh > 0 || isFirstLoad) {
+            view.showProgress(true);
             dataSource.loadFriends(new IDataSource.OnDataLoadedCallback() {
                 @Override
                 public void onComplete(VKResponse response) {
+                    view.showProgress(false);
                     try {
                         JSONObject resp = (JSONObject) response.json.get("response");
                         usersCount = resp.getInt("count");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    view.displayResult(new ArrayList<VKApiUser>((VKUsersArray) response.parsedModel));
                     friends.addAll((VKUsersArray) response.parsedModel);
                 }
 

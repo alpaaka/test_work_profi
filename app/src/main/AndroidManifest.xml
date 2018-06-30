@@ -18,7 +18,9 @@
         <activity android:name=".ui.activities.AuthActivity">
 
         </activity>
-        <activity android:name=".ui.activities.FriendsActivity">
+        <activity
+            android:name=".ui.activities.FriendsActivity"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

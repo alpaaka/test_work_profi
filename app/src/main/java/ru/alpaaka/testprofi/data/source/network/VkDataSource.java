@@ -56,6 +56,6 @@ public class VkDataSource implements IVkDataSource {
 
     private void bindBasicParameters(){
         friendsParameters.put(VKApiConst.COUNT, USERS_COUNT);
-        friendsParameters.put(VKApiConst.FIELDS, "photo_100_orig");
+        friendsParameters.put(VKApiConst.FIELDS, "photo_100");
     }
 }

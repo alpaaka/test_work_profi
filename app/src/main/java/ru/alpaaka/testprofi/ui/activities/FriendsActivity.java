@@ -32,10 +32,10 @@ public class FriendsActivity extends AppCompatActivity {
                 fragmentManager.findFragmentByTag("FriendsListFragment");
         if (fragment == null) {
             fragment = FriendsListFragment.newInstance();
+            fragmentManager.beginTransaction()
+                    .add(CONTAINER, fragment, "FriendsListFragment")
+                    .commit();
         }
-        fragmentManager.beginTransaction()
-                .add(CONTAINER, fragment, "FriendsListFragment")
-                .commit();
         fragment.setPresenter(presenter);
     }
 }
