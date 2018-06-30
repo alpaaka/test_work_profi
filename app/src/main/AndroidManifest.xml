@@ -16,12 +16,13 @@
             android:label="ServiceActivity"
             android:theme="@style/VK.Transparent" />
         <activity android:name=".ui.activities.AuthActivity">
+
+        </activity>
+        <activity android:name=".ui.activities.FriendsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ui.activities.FriendsActivity">
         </activity>
     </application>
 </manifest>

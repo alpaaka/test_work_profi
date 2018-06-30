@@ -25,6 +25,7 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter.loadFriends();
     }
 
     @Override
@@ -51,5 +52,10 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
     @Override
     public void setPresenter(FriendsContract.Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    public void showProgress() {
+
     }
 }

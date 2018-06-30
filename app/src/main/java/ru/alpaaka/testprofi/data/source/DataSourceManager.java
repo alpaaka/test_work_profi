@@ -14,8 +14,8 @@ public class DataSourceManager {
 
     public DataSourceManager(Context context) {
         this.sharedPreferences = new SharedPreferencesImpl(context);
-        this.dataSource = new DataSourceImpl(sharedPreferences);
         this.appExecutor = new AppExecutor(new AppExecutor.MainThreadExecutor());
+        this.dataSource = new DataSourceImpl(appExecutor);
     }
 
     public IDataSource getDataSource() {
