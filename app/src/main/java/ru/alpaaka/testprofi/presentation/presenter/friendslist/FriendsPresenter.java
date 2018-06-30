@@ -36,8 +36,7 @@ public class FriendsPresenter implements FriendsContract.Presenter {
 
     @Override
     public void loadFriends() {
-        int refresh = usersCount - friends.size();
-        if (refresh > 0 || isFirstLoad) {
+        if (usersCount - friends.size() > 0 || isFirstLoad) {
             view.showProgress(true);
             dataSource.loadFriends(new IDataSource.OnDataLoadedCallback() {
                 @Override
@@ -62,7 +61,7 @@ public class FriendsPresenter implements FriendsContract.Presenter {
                 public void attemptFailed() {
 
                 }
-            }, refresh);
+            }, friends.size());
             isFirstLoad = false;
         }
     }

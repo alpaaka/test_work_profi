@@ -23,6 +23,8 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
     private FriendsContract.Presenter presenter;
     private FriendsRecyclerViewAdapter adapter;
 
+    private boolean isLoading;
+
     public static FriendsListFragment newInstance() {
         Bundle args = new Bundle();
         FriendsListFragment fragment = new FriendsListFragment();
@@ -56,11 +58,25 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friends_list, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.rv_friends);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerView.getContext());
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerView.getContext());
         adapter = new FriendsRecyclerViewAdapter(new ArrayList<>(),
                 recyclerView.getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                if (!isLoading) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount) {
+                        isLoading = true;
+                        presenter.loadFriends();
+                    }
+                }
+            }
+        });
         return view;
     }
 
@@ -71,6 +87,7 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
 
     @Override
     public void showProgress(boolean progress) {
+        this.isLoading = progress;
         adapter.showLoading(progress);
     }
 
