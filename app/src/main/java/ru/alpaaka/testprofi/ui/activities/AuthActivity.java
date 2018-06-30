@@ -1,4 +1,4 @@
-package ru.alpaaka.testprofi.auth;
+package ru.alpaaka.testprofi.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -80,6 +80,9 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
 
     //Если токен получен
     private void showFriendsList() {
-
+        Intent intent = new Intent(AuthActivity.this, FriendsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
 }

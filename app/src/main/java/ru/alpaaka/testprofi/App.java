@@ -7,7 +7,7 @@ import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;
 import com.vk.sdk.VKSdk;
 
-import ru.alpaaka.testprofi.auth.AuthActivity;
+import ru.alpaaka.testprofi.ui.activities.AuthActivity;
 import ru.alpaaka.testprofi.data.source.DataSourceManager;
 
 public class App extends Application {
