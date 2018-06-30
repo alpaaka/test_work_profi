@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">testprofi</string>
+    <string name="sign_up">Войти</string>
+
+    <string name="internal_error">Внутренняя ошибка</string>
+    
     <integer name="com_vk_sdk_AppId">6616728</integer>
 </resources>
