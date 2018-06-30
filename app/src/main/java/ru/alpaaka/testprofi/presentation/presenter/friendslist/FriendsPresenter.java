@@ -17,8 +17,8 @@ public class FriendsPresenter implements FriendsContract.Presenter {
     private IDataSource dataSource;
 
     private boolean isFirstLoad = true;
-    private ArrayList<VKApiUser> friends = new ArrayList<>();
     private int usersCount = 0;
+    private int totalCount = 0;
 
     public FriendsPresenter(IDataSource dataSource) {
         this.dataSource = dataSource;
@@ -36,7 +36,7 @@ public class FriendsPresenter implements FriendsContract.Presenter {
 
     @Override
     public void loadFriends() {
-        if (usersCount - friends.size() > 0 || isFirstLoad) {
+        if (usersCount - totalCount > 0 || isFirstLoad) {
             view.showProgress(true);
             dataSource.loadFriends(new IDataSource.OnDataLoadedCallback() {
                 @Override
@@ -49,7 +49,7 @@ public class FriendsPresenter implements FriendsContract.Presenter {
                         e.printStackTrace();
                     }
                     view.displayResult(new ArrayList<VKApiUser>((VKUsersArray) response.parsedModel));
-                    friends.addAll((VKUsersArray) response.parsedModel);
+                    totalCount += ((VKUsersArray) response.parsedModel).size();
                 }
 
                 @Override
@@ -61,7 +61,7 @@ public class FriendsPresenter implements FriendsContract.Presenter {
                 public void attemptFailed() {
 
                 }
-            }, friends.size());
+            }, totalCount);
             isFirstLoad = false;
         }
     }
