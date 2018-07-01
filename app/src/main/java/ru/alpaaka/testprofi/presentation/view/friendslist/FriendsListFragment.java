@@ -1,5 +1,6 @@
 package ru.alpaaka.testprofi.presentation.view.friendslist;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,10 +19,12 @@ import ru.alpaaka.testprofi.R;
 import ru.alpaaka.testprofi.presentation.presenter.friendslist.FriendsContract;
 import ru.alpaaka.testprofi.ui.adapters.FriendsRecyclerViewAdapter;
 
-public class FriendsListFragment extends Fragment implements FriendsContract.View{
+public class FriendsListFragment extends Fragment implements FriendsContract.View {
 
     private FriendsContract.Presenter presenter;
     private FriendsRecyclerViewAdapter adapter;
+
+    private OnFragmentInteractionListener listener;
 
     private boolean isLoading;
 
@@ -30,6 +33,14 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
         FriendsListFragment fragment = new FriendsListFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener){
+            this.listener = (OnFragmentInteractionListener) context;
+        }
     }
 
     @Override
@@ -94,5 +105,14 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
     @Override
     public void displayResult(ArrayList<VKApiUser> list) {
         adapter.displayResult(list);
+    }
+
+    @Override
+    public void displayError(int code) {
+        listener.displayError(code);
+    }
+
+    public interface OnFragmentInteractionListener {
+        void displayError(int code);
     }
 }

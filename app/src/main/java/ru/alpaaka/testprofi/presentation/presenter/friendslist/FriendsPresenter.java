@@ -53,14 +53,13 @@ public class FriendsPresenter implements FriendsContract.Presenter {
                 }
 
                 @Override
-                public void onError() {
-
+                public void onError(int code) {
+                    if (view != null){
+                        view.showProgress(false);
+                        view.displayError(code);
+                    }
                 }
 
-                @Override
-                public void attemptFailed() {
-
-                }
             }, totalCount);
             isFirstLoad = false;
         }

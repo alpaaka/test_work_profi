@@ -12,6 +12,7 @@ public class FriendsContract {
     public interface View extends BaseView<Presenter>{
         void showProgress(boolean progress);
         void displayResult(ArrayList<VKApiUser> list);
+        void displayError(int code);
     }
 
     public interface Presenter extends BasePresenter<View>{

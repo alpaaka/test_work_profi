@@ -7,9 +7,8 @@ public interface IDataSource {
     interface OnDataLoadedCallback {
         void onComplete(VKResponse response);
 
-        void onError();
+        void onError(int code);
 
-        void attemptFailed();
     }
 
     void loadFriends(OnDataLoadedCallback callback, int offset);

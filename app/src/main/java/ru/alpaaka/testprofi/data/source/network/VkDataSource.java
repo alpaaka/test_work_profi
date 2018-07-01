@@ -43,13 +43,8 @@ public class VkDataSource implements IVkDataSource {
             }
 
             @Override
-            public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
-                super.attemptFailed(request, attemptNumber, totalAttempts);
-            }
-
-            @Override
             public void onError(VKError error) {
-                super.onError(error);
+                callback.onError(error.errorCode);
             }
         });
     }

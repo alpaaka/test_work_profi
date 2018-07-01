@@ -3,7 +3,9 @@
     <string name="sign_up">Войти</string>
     <string name="fullname">%1$s %2$s</string>
 
+    <string name="check">Проверить</string>
     <string name="internal_error">Внутренняя ошибка</string>
+    <string name="connection_lost">Проверьте соединение с интернетом</string>
     
     <integer name="com_vk_sdk_AppId">6616728</integer>
 </resources>

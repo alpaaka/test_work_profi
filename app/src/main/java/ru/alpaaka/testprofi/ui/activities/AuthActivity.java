@@ -66,6 +66,8 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
             case VKError.VK_REQUEST_HTTP_FAILED:
                 generateSnackbar(R.string.internal_error);
                 break;
+            case VKError.VK_CANCELED:
+                break;
 
         }
 
