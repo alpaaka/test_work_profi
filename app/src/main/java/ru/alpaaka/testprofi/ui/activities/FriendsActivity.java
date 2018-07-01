@@ -51,6 +51,19 @@ public class FriendsActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        fragmentManager.popBackStack();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        super.onBackPressed();
+    }
+
+    @Override
     public void displayError(int code) {
         switch (code) {
             case VKError.VK_REQUEST_HTTP_FAILED:
@@ -89,5 +102,6 @@ public class FriendsActivity extends AppCompatActivity
                 .addToBackStack("ImageFragment")
                 .commit();
         fragment.setPresenter(presenter);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
