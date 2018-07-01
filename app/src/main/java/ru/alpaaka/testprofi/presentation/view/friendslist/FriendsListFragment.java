@@ -28,9 +28,9 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
     private RecyclerView recyclerView;
     private OnImageClickListener clickListener = new OnImageClickListener() {
         @Override
-        public void onImageClick(int id) {
-            if (listener != null){
-                listener.showImage(id);
+        public void onImageClick(int id, View view, String url) {
+            if (listener != null) {
+                listener.showImage(id, view, url);
             }
         }
     };
@@ -47,7 +47,7 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener){
+        if (context instanceof OnFragmentInteractionListener) {
             this.listener = (OnFragmentInteractionListener) context;
         }
     }
@@ -135,6 +135,7 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
 
     public interface OnFragmentInteractionListener {
         void displayError(int code);
-        void showImage(int id);
+
+        void showImage(int id, View view, String url);
     }
 }

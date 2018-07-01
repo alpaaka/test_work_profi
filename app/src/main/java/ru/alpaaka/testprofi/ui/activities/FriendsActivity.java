@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.transition.Transition;
+import android.support.transition.TransitionInflater;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.vk.sdk.api.VKError;
+
+import java.util.Objects;
 
 import ru.alpaaka.testprofi.App;
 import ru.alpaaka.testprofi.R;
@@ -53,13 +58,13 @@ public class FriendsActivity extends AppCompatActivity
     @Override
     public boolean onSupportNavigateUp() {
         fragmentManager.popBackStack();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
         return super.onSupportNavigateUp();
     }
 
     @Override
     public void onBackPressed() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
         super.onBackPressed();
     }
 
@@ -93,15 +98,31 @@ public class FriendsActivity extends AppCompatActivity
     }
 
     @Override
-    public void showImage(int id) {
+    public void showImage(int id, View view, String url) {
         ImageContract.Presenter presenter = new ImagePresenter(((App) getApplication())
                 .getDataSourceManager().getDataSource());
-        ImageFragment fragment = ImageFragment.newInstance(id);
+        FriendsListFragment listFragment =
+                (FriendsListFragment) fragmentManager.findFragmentByTag("FriendsListFragment");
+        ImageFragment fragment = ImageFragment.newInstance(id, view.getTransitionName(), url);
+        addTransition(Objects.requireNonNull(listFragment), fragment);
         fragmentManager.beginTransaction()
+                .addSharedElement(view, view.getTransitionName())
                 .replace(CONTAINER, fragment, "ImageFragment")
                 .addToBackStack("ImageFragment")
                 .commit();
         fragment.setPresenter(presenter);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+    }
+
+    //Добавление анимации перехода между фрагментами с анимацией передачи view
+    private void addTransition(Fragment first, Fragment target) {
+        Transition changeTransform = TransitionInflater.from(this).
+                inflateTransition(R.transition.image_transition);
+        Transition explodeTransform = TransitionInflater.from(this).
+                inflateTransition(android.R.transition.explode);
+        first.setSharedElementReturnTransition(changeTransform);
+        first.setExitTransition(explodeTransform);
+        target.setSharedElementEnterTransition(changeTransform);
+        target.setEnterTransition(explodeTransform);
     }
 }
