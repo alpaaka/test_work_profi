@@ -5,4 +5,6 @@ import ru.alpaaka.testprofi.data.source.IDataSource;
 public interface IVkDataSource {
 
     void loadFriends(IDataSource.OnDataLoadedCallback callback, int offset);
+
+    void loadPhoto(IDataSource.OnImageLoadedCallback callback, int id);
 }

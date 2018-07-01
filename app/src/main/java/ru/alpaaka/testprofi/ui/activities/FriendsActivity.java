@@ -21,7 +21,8 @@ import ru.alpaaka.testprofi.presentation.view.friendslist.FriendsListFragment;
 import ru.alpaaka.testprofi.presentation.view.image.ImageFragment;
 
 public class FriendsActivity extends AppCompatActivity
-        implements FriendsListFragment.OnFragmentInteractionListener {
+        implements FriendsListFragment.OnFragmentInteractionListener,
+        ImageFragment.OnFragmentInteractionListener {
 
     private static final int CONTAINER = R.id.container;
 

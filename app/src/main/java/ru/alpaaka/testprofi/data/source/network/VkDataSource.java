@@ -7,6 +7,8 @@ import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.model.VKApiUser;
+import com.vk.sdk.api.model.VKApiUserFull;
+import com.vk.sdk.api.model.VKList;
 import com.vk.sdk.api.model.VKUsersArray;
 
 import org.json.JSONException;
@@ -58,8 +60,44 @@ public class VkDataSource implements IVkDataSource {
             }
 
             @Override
-            public void onError(VKError error) {
-                callback.onError(error.errorCode);
+            public void onError(final VKError error) {
+                executor.getMainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onError(error.errorCode);
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public void loadPhoto(final IDataSource.OnImageLoadedCallback callback, int id) {
+        HashMap<String, Object> usersParameters = new HashMap<>();
+        usersParameters.put(VKApiConst.USER_IDS, id);
+        usersParameters.put(VKApiConst.FIELDS, "photo_max_orig");
+        VKRequest request = VKApi.users()
+                .get(new VKParameters(usersParameters));
+        request.executeWithListener(new VKRequest.VKRequestListener() {
+            @Override
+            public void onComplete(final VKResponse response) {
+                executor.getMainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onComplete(((VKApiUserFull)
+                                ((VKList) response.parsedModel).get(0)).photo_max_orig);
+                    }
+                });
+            }
+
+            @Override
+            public void onError(final VKError error) {
+                executor.getMainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onError(error.errorCode);
+                    }
+                });
             }
         });
     }
