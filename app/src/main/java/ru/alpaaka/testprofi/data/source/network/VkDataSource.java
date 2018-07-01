@@ -6,7 +6,13 @@ import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
+import com.vk.sdk.api.model.VKApiUser;
+import com.vk.sdk.api.model.VKUsersArray;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import ru.alpaaka.testprofi.data.source.IDataSource;
@@ -37,7 +43,16 @@ public class VkDataSource implements IVkDataSource {
                 executor.getMainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        callback.onComplete(response);
+                        int usersCount = 0;
+                        try {
+                            JSONObject resp = (JSONObject) response.json.get("response");
+                            usersCount = resp.getInt("count");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        callback
+                                .onComplete(new ArrayList<VKApiUser>((VKUsersArray) response.parsedModel)
+                                        , usersCount);
                     }
                 });
             }
@@ -49,7 +64,7 @@ public class VkDataSource implements IVkDataSource {
         });
     }
 
-    private void bindBasicParameters(){
+    private void bindBasicParameters() {
         friendsParameters.put(VKApiConst.COUNT, USERS_COUNT);
         friendsParameters.put(VKApiConst.FIELDS, "photo_100");
     }

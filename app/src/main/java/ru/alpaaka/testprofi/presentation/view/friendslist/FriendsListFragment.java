@@ -56,7 +56,7 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
     public void onResume() {
         super.onResume();
         presenter.takeView(this);
-        presenter.loadFriends();
+        presenter.init();
     }
 
     @Override
@@ -93,7 +93,7 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
                 if (!isLoading) {
                     if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount) {
                         isLoading = true;
-                        presenter.loadFriends();
+                        presenter.loadMore();
                     }
                 }
             }

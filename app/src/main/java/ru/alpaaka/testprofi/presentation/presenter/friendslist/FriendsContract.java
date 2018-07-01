@@ -16,6 +16,7 @@ public class FriendsContract {
     }
 
     public interface Presenter extends BasePresenter<View>{
-        void loadFriends();
+        void loadMore();
+        void init();
     }
 }
