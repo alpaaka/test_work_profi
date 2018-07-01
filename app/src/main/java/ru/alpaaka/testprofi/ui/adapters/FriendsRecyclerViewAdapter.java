@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import ru.alpaaka.testprofi.R;
 import ru.alpaaka.testprofi.data.source.images.ImageLoader;
+import ru.alpaaka.testprofi.presentation.view.friendslist.OnImageClickListener;
 
 public class FriendsRecyclerViewAdapter extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -25,10 +26,14 @@ public class FriendsRecyclerViewAdapter extends
 
     private ArrayList<Object> list;
     private Context context;
+    private OnImageClickListener clickListener;
 
-    public FriendsRecyclerViewAdapter(ArrayList<Object> list, Context context) {
+    public FriendsRecyclerViewAdapter(ArrayList<Object> list,
+                                      Context context,
+                                      OnImageClickListener clickListener) {
         this.list = list;
         this.context = context;
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -95,10 +100,16 @@ public class FriendsRecyclerViewAdapter extends
             ivIcon = itemView.findViewById(R.id.iv_photo);
         }
 
-        void bind(VKApiUser user) {
+        void bind(final VKApiUser user) {
             tvFullname
                     .setText(context.getString(R.string.fullname, user.first_name, user.last_name));
             ImageLoader.getInstance().bind(ivIcon, user.photo_100);
+            ivIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickListener.onImageClick(user.id);
+                }
+            });
         }
     }
 

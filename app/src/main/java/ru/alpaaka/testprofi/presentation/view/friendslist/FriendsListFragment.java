@@ -26,6 +26,14 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
 
     private OnFragmentInteractionListener listener;
     private RecyclerView recyclerView;
+    private OnImageClickListener clickListener = new OnImageClickListener() {
+        @Override
+        public void onImageClick(int id) {
+            if (listener != null){
+                listener.showImage(id);
+            }
+        }
+    };
 
     private boolean isLoading;
 
@@ -72,7 +80,8 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
         recyclerView = view.findViewById(R.id.rv_friends);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerView.getContext());
         adapter = new FriendsRecyclerViewAdapter(new ArrayList<>(),
-                recyclerView.getContext());
+                recyclerView.getContext(),
+                clickListener);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -126,5 +135,6 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
 
     public interface OnFragmentInteractionListener {
         void displayError(int code);
+        void showImage(int id);
     }
 }

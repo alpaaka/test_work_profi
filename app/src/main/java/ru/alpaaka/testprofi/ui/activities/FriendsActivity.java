@@ -15,7 +15,10 @@ import ru.alpaaka.testprofi.App;
 import ru.alpaaka.testprofi.R;
 import ru.alpaaka.testprofi.presentation.presenter.friendslist.FriendsContract;
 import ru.alpaaka.testprofi.presentation.presenter.friendslist.FriendsPresenter;
+import ru.alpaaka.testprofi.presentation.presenter.image.ImageContract;
+import ru.alpaaka.testprofi.presentation.presenter.image.ImagePresenter;
 import ru.alpaaka.testprofi.presentation.view.friendslist.FriendsListFragment;
+import ru.alpaaka.testprofi.presentation.view.image.ImageFragment;
 
 public class FriendsActivity extends AppCompatActivity
         implements FriendsListFragment.OnFragmentInteractionListener {
@@ -73,5 +76,17 @@ public class FriendsActivity extends AppCompatActivity
             case VKError.VK_CANCELED:
                 break;
         }
+    }
+
+    @Override
+    public void showImage(int id) {
+        ImageContract.Presenter presenter = new ImagePresenter(((App) getApplication())
+                .getDataSourceManager().getDataSource());
+        ImageFragment fragment = ImageFragment.newInstance(id);
+        fragmentManager.beginTransaction()
+                .replace(CONTAINER, fragment, "ImageFragment")
+                .addToBackStack("ImageFragment")
+                .commit();
+        fragment.setPresenter(presenter);
     }
 }
