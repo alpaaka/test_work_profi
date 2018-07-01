@@ -25,6 +25,7 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
     private FriendsRecyclerViewAdapter adapter;
 
     private OnFragmentInteractionListener listener;
+    private RecyclerView recyclerView;
 
     private boolean isLoading;
 
@@ -68,7 +69,7 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friends_list, container, false);
-        RecyclerView recyclerView = view.findViewById(R.id.rv_friends);
+        recyclerView = view.findViewById(R.id.rv_friends);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerView.getContext());
         adapter = new FriendsRecyclerViewAdapter(new ArrayList<>(),
                 recyclerView.getContext());
@@ -97,14 +98,25 @@ public class FriendsListFragment extends Fragment implements FriendsContract.Vie
     }
 
     @Override
-    public void showProgress(boolean progress) {
+    public void showProgress(final boolean progress) {
         this.isLoading = progress;
-        adapter.showLoading(progress);
+        recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                adapter.showLoading(progress);
+            }
+        });
     }
 
     @Override
-    public void displayResult(ArrayList<VKApiUser> list) {
-        adapter.displayResult(list);
+    public void displayResult(final ArrayList<VKApiUser> list) {
+        recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                adapter.displayResult(list);
+
+            }
+        });
     }
 
     @Override

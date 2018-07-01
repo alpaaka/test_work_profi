@@ -2,6 +2,7 @@ package ru.alpaaka.testprofi.data.source;
 
 import android.content.Context;
 
+import ru.alpaaka.testprofi.data.source.images.ImageLoader;
 import ru.alpaaka.testprofi.utils.AppExecutor;
 import ru.alpaaka.testprofi.utils.sharedpreferences.ISharedPreferences;
 import ru.alpaaka.testprofi.utils.sharedpreferences.SharedPreferencesImpl;
@@ -16,6 +17,7 @@ public class DataSourceManager {
         this.sharedPreferences = new SharedPreferencesImpl(context);
         this.appExecutor = new AppExecutor(new AppExecutor.MainThreadExecutor());
         this.dataSource = new DataSourceImpl(appExecutor);
+        ImageLoader.getInstance().initialize(appExecutor);
     }
 
     public IDataSource getDataSource() {

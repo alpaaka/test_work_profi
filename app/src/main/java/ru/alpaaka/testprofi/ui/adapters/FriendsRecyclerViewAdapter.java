@@ -15,6 +15,7 @@ import com.vk.sdk.api.model.VKApiUser;
 import java.util.ArrayList;
 
 import ru.alpaaka.testprofi.R;
+import ru.alpaaka.testprofi.data.source.images.ImageLoader;
 
 public class FriendsRecyclerViewAdapter extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -72,12 +73,12 @@ public class FriendsRecyclerViewAdapter extends
             this.list.add(new Object());
             notifyItemInserted(position);
         } else {
-            this.list.remove(position - 1);
             notifyItemRemoved(position - 1);
+            this.list.remove(position - 1);
         }
     }
 
-    public void displayResult(ArrayList<VKApiUser> list){
+    public void displayResult(ArrayList<VKApiUser> list) {
         int position = this.list.size();
         this.list.addAll(list);
         notifyItemRangeInserted(position, list.size());
@@ -97,6 +98,7 @@ public class FriendsRecyclerViewAdapter extends
         void bind(VKApiUser user) {
             tvFullname
                     .setText(context.getString(R.string.fullname, user.first_name, user.last_name));
+            ImageLoader.getInstance().bind(ivIcon, user.photo_100);
         }
     }
 
