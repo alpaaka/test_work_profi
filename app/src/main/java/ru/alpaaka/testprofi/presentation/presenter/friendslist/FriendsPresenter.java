@@ -11,7 +11,6 @@ public class FriendsPresenter implements FriendsContract.Presenter {
     private FriendsContract.View view;
     private IDataSource dataSource;
 
-    private boolean isFirstLoad = true;
     private int usersCount = 0;
     private int totalCount = 0;
 
@@ -31,16 +30,23 @@ public class FriendsPresenter implements FriendsContract.Presenter {
 
     @Override
     public void loadMore() {
-        if (usersCount - totalCount > 0 || isFirstLoad) {
+        if (usersCount - totalCount > 0) {
             view.showProgress(true);
             loadFriends(totalCount);
-            isFirstLoad = false;
         }
+    }
+
+    public void setUsersCount(int usersCount) {
+        this.usersCount = usersCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
     }
 
     @Override
     public void init() {
-        if (view != null){
+        if (view != null) {
             view.showProgress(true);
             totalCount = 0;
         }
