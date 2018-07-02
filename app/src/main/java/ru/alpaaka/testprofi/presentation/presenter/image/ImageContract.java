@@ -10,9 +10,10 @@ public class ImageContract {
     public interface View extends BaseView<Presenter> {
         void showProgress(boolean progress);
         void displayError(int code);
+        void showImage(String url);
     }
 
     public interface Presenter extends BasePresenter<View> {
-        void loadImage(int id, ImageView imageView);
+        void loadImage(int id);
     }
 }

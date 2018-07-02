@@ -62,7 +62,7 @@ public class ImageFragment extends Fragment implements ImageContract.View {
     public void onResume() {
         super.onResume();
         presenter.takeView(this);
-        presenter.loadImage(id, photoView);
+        presenter.loadImage(id);
     }
 
     @Override
@@ -102,6 +102,11 @@ public class ImageFragment extends Fragment implements ImageContract.View {
     @Override
     public void displayError(int code) {
         listener.displayError(code);
+    }
+
+    @Override
+    public void showImage(String url) {
+        ImageLoader.getInstance().bind(photoView, url);
     }
 
     public interface OnFragmentInteractionListener {

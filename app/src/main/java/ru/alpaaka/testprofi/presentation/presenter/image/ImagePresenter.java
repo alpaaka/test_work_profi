@@ -25,14 +25,14 @@ public class ImagePresenter implements ImageContract.Presenter {
     }
 
     @Override
-    public void loadImage(int id, final ImageView imageView) {
+    public void loadImage(int id) {
         view.showProgress(true);
         dataSource.loadPhoto(new IDataSource.OnImageLoadedCallback() {
             @Override
             public void onComplete(String url) {
                 if (view != null){
                     view.showProgress(false);
-                    ImageLoader.getInstance().bind(imageView, url);
+                    view.showImage(url);
                 }
             }
 
