@@ -1,4 +1,4 @@
-package ru.alpaaka.testprofi.presenters;
+package ru.alpaaka.testprofi.presenters.friends;
 
 import com.vk.sdk.api.model.VKApiUser;
 
@@ -18,9 +18,6 @@ import ru.alpaaka.testprofi.presentation.presenter.friendslist.FriendsContract;
 import ru.alpaaka.testprofi.presentation.presenter.friendslist.FriendsPresenter;
 
 public class FriendsPresenterTest {
-
-    private static final Integer USERSCOUNT = 7;
-    private static final Integer TOTALCOUNT = 5;
 
     private static ArrayList<VKApiUser> LIST;
     private static int COUNT;
